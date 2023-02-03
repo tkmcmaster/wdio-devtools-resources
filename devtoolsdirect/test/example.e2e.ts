@@ -4,6 +4,9 @@ import { Client as RpcClient } from "noice-json-rpc";
 import { URL } from "url";
 import WebSocket from "ws";
 import axios from "axios";
+import { join as pathJoin } from "path";
+
+const RESULTS_PATH = process.env.RESULTS_PATH || "."
 
 type DevTools = ProtocolProxyApi.ProtocolApi;
 type TabInfo = Record<"description" | "devtoolsFrontendUrl" | "id" | "title" | "type" | "url" | "webSocketDebuggerUrl", string>;
@@ -13,6 +16,7 @@ describe('Basic Test', () => {
   let resourceCount = 0;
 
   it('should go to page and log resources', async () => {
+    try {
     await browser.maximizeWindow();
     
     // Set up resource counting
@@ -40,6 +44,11 @@ describe('Basic Test', () => {
     await expect($('h4')).toBeExisting();
     console.log("requestWillBeSent resourceCount: " + resourceCount);
     expect(resourceCount).toBeGreaterThanOrEqual(100);
+    } finally {
+      const screenshot = pathJoin(RESULTS_PATH, `devtoolsdirect-${new Date().toISOString().replace(/[-:\.Z]/g, "")}.png`);
+      console.log("Saving Screenshot: " + screenshot);
+      await browser.saveScreenshot(screenshot).catch((error) => console.error("Could not save screenshot " + screenshot, error));
+    }
   });
 });
 

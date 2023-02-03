@@ -77,6 +77,34 @@ export const config: Options.Testrunner = {
             },
             // https://help.applitools.com/hc/en-us/articles/360007189411--Chrome-is-being-controlled-by-automated-test-software-notification
             excludeSwitches: ["enable-automation"],
+            // args: [
+            //     "--disable-background-networking",
+            //     "--disable-client-side-phishing-detection",
+            //     "--disable-default-apps",
+            //     "--disable-hang-monitor",
+            //     "--disable-popup-blocking",
+            //     "--disable-sync",
+            //     "--log-level=0",
+            //     "--metrics-recording-only",
+            //     "--no-first-run",
+            //     "--password-store=basic",
+            //     "--safebrowsing-disable-auto-update",
+            //     "--use-mock-keychain",
+            //     "--disable-breakpad",
+            //     "--noerrdialogs",
+            //     "--allow-insecure-localhost",
+            //     "--disable-notifications",
+            //     "--disable-component-extensions-with-background-pages",
+            //     "--disable-prompt-on-repost",
+            //     "--no-default-browser-check",
+            //     "--no-pings",
+            //     // "--no-sandbox",
+            //     "--remote-debugging-port=0",
+            //     "--disable-infobars",
+            //     // enables the chrome.benchmarking closeConnections and clearHostResolverCache methods
+            //     "--enable-net-benchmarking",
+            //     "about:blank"
+            // ],
         },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
