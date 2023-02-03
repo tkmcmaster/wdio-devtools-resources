@@ -1,5 +1,5 @@
 describe('Basic Test', () => {
-    const timeout: number = 60000;
+    const timeout: number = 30000;
     let resourceCount = 0;
 
     it('should go to page and log resources', async () => {

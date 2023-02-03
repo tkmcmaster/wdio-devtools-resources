@@ -77,12 +77,6 @@ export const config: Options.Testrunner = {
             },
             // https://help.applitools.com/hc/en-us/articles/360007189411--Chrome-is-being-controlled-by-automated-test-software-notification
             excludeSwitches: ["enable-automation"],
-            args: [
-                "--headless",
-                "--disable-gpu",
-                "--hide-scrollbars",
-                "--mute-audio"
-            ]
         },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs

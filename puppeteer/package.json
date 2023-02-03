@@ -13,6 +13,8 @@
         "wdio-chromedriver-service": "^8.0.1"
     },
     "scripts": {
-        "wdio": "wdio run wdio.conf.ts"
+        "wdio": "wdio run wdio.conf.ts",
+        "xvfb": "xvfb-run --server-args=\"-screen 0 1920x1080x16\" -a wdio run wdio.conf.ts",
+        "headless": "wdio run wdio.headless.conf.ts"
     }
 }
