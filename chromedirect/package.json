@@ -1,0 +1,25 @@
+{
+  "name": "webdriverio-tests",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "axios": "^1.3.1",
+    "chai": "^4.3.7",
+    "chromedriver": "^109.0.0",
+    "devtools-protocol": "^0.0.1100832",
+    "mocha": "^10.2.0",
+    "noice-json-rpc": "~1.2.0",
+    "rimraf": "^4.1.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "wdio-chromedriver-service": "^8.0.1",
+    "ws": "^8.12.0"
+  },
+  "scripts": {
+    "test": "mocha --timeout 130000",
+    "xvfb": "xvfb-run --server-args=\"-screen 0 1920x1080x16\" -a mocha --timeout 130000",
+    "headless": "HEADLESS=true mocha --timeout 130000"
+  }
+}
