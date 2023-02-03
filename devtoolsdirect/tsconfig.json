@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [
+      "node",
+      "@wdio/globals/types",
+      "expect-webdriverio",
+      "@wdio/mocha-framework"
+    ],
+  }
+}
