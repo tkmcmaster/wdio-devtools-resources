@@ -82,6 +82,7 @@ export const withTimeout = <T>(promise: Promise<T>, ms: number, timeoutCb?: (err
 describe('Basic Test', () => {
   const timeout: number = 30000;
   let resourceCount = 0;
+  let screenshotData: string | undefined;
 
   it('should go to page and log resources', async () => {
     let chromeProcess: ChildProcess | undefined;
@@ -158,6 +159,24 @@ describe('Basic Test', () => {
       // console.log("requestWillBeSent", { resourceCount, e });
     });
 
+        // CDP - tot - unstable
+        cdp.Page.startScreencast({ format: "png", quality: 90, maxWidth: 1920, maxHeight: 1080 })
+                    .catch((error) => console.error("Error when starting screen cast", error));
+        // CDP - tot - unstable
+        cdp.Page.on("screencastFrame", ({
+          data, sessionId, metadata: { timestamp: ts }
+        }: CDP.Page.ScreencastFrameEvent) => {
+          // CDP - tot - unstable
+          // TODO we may need to detect if the browser has ended if we're seeing ECONNRESET error messages after the browser closes
+          cdp.Page.screencastFrameAck({ sessionId }).catch(() => { /* */});
+          screenshotData = data;
+          // if (!ts) {
+          //   return;
+          // }
+          // const filename = pathJoin(RESULTS_PATH, `chromedirect.${ts}.jpg`);
+          // fs.writeFile(filename, data, "base64")
+          // .catch((error) => console.error("could not write screencast file: " + filename, error));
+        });
     await cdp.Page.navigate({ url: "https://www.familysearch.org/africa/" });
     await sleep(15000);
     // browser.waitUntil(() => document.readyState === "complete", { timeout });
@@ -167,6 +186,12 @@ describe('Basic Test', () => {
     console.log("requestWillBeSent resourceCount: " + resourceCount);
     expect(resourceCount).to.be.greaterThanOrEqual(200);
     } finally {
+      if (screenshotData) {
+        const filename = pathJoin(RESULTS_PATH, `devtoolsplugin-${new Date().toISOString().replace(/[-:\.Z]/g, "")}.png`);
+        console.log("Saving Screenshot: " + filename);
+        fs.writeFile(filename, screenshotData, "base64")
+        .catch((error) => console.error("Could not save screenshot: " + filename, error));
+      }
       if (chromeProcess) {
         chromeProcess.kill();
       }
